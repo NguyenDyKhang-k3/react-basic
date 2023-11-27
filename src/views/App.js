@@ -1,7 +1,14 @@
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import MyComponent from "./Example/MyComponent";
 
-function App() {
+/**
+ * 2 loại components: class component / function component (function, arrow)
+ * nếu 1 hàm return 1 đóng html là component
+ */
+
+const App = () => {
+// function App() {
     return (
         <div className="App">
             <header className="App-header">
@@ -9,14 +16,7 @@ function App() {
                 <p>
                     wellcome khang with to react
                 </p>
-                <a
-                    className="App-link"
-                    href="https://reactjs.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    Learn React
-                </a>
+                <MyComponent/>
             </header>
         </div>
     );
