@@ -1,11 +1,10 @@
 import React from 'react';
 import ChildComponent from "./ChildComponent";
+import AddComponent from "./AddComponent";
 
 class MyComponent extends React.Component {
 
     state = {
-        firstName: '',
-        lastName: '',
         arrJobs: [
             {id: 'job1', title: 'developers', salary: '500$'},
             {id: 'job2', title: 'testers', salary: '400$'},
@@ -13,42 +12,43 @@ class MyComponent extends React.Component {
         ]
     }
 
-    handleOnChangeFirstName = (event) => {
-        this.setState({firstName: event.target.value})
-    }
-    handleOnChangeLastName = (event) => {
-        this.setState({lastName: event.target.value})
-    }
-    handleSubmit = (event) => {
-        event.preventDefault();
-        alert("click me");
-        console.log('Data: ', this.state);
+    //tạo funtion
+    addNewJob = (job) => {
+        console.log('check job: ' + job)
+        this.setState({
+            // (...) là tạo ra bản sao của mãng arrJobs (3 dấu chấm là toán tử copy)
+            arrJobs: [...this.state.arrJobs, job]
+        })
     }
 
+    //tạo hàm xóa truyền cho con
+    deleteAJob = (job) => {
+        //lấy tất cả phần tử trong mãng
+        let currenJobs = this.state.arrJobs;
+        /**dùng filter để lọc tất cả phần tử có id khác với id đc truyền vào
+         (nghĩa là loại bỏ id trùng với id đc truyển vào)
+         sau đó gán ngược lại cho currenJobs, rồi cập nhật lại state */
+        currenJobs = currenJobs.filter(item => item.id !== job.id);
+        this.setState({
+            arrJobs: currenJobs
+        })
+    }
 
+    /*
+    JSX => return block
+    fragment
+     */
+
+    //re-rebder
     render() {
-        return (
-            <>
-                <form>
-                    <label htmlFor="fName">First Name</label><br/>
-                    <input type="text"
-                           value={this.state.firstName}
-                           onChange={(event) => this.handleOnChangeFirstName(event)}/><br/>
-                    <label htmlFor="lName">Last Name</label><br/>
-                    <input type="text"
-                           value={this.state.lastName}
-                           onChange={(event) => this.handleOnChangeLastName(event)}/><br/>
-                    <input type="submit" value="submit"
-                           onClick={(event) => this.handleSubmit(event)}/>
-                </form>
-                <ChildComponent
-                    name={this.state.firstName}
-                    age={'21'}
-                    address={'Can Tho'}
-                    arrJobs={this.state.arrJobs}
-                />
-            </>
-        )
+        return (<>
+            <AddComponent
+                addNewJob={this.addNewJob}/>
+            <ChildComponent
+                arrJobs={this.state.arrJobs}
+                deleteAJob={this.deleteAJob}
+            />
+        </>)
     }
 }
 
