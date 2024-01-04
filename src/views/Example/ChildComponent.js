@@ -1,4 +1,5 @@
 import React from 'react';
+import "./Demo.scss"
 
 class ChildComponent extends React.Component {
 
@@ -24,7 +25,9 @@ class ChildComponent extends React.Component {
         return (<>
             {showJobs === false ?
                 <div>
-                    <button onClick={() => this.handleShowHide()}>show</button>
+                    <button className="btn-show"
+                            onClick={() => this.handleShowHide()}>show
+                    </button>
                 </div>
                 :
                 showJobs &&
