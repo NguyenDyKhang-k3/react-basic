@@ -9,10 +9,12 @@ import Nav from './Nav/Nav';
 import Home from './Example/Home';
 import {
     BrowserRouter,
-    Routes,
+    Switch,
     Route,
     Link
 } from "react-router-dom";
+import ListUser from "./Users/ListUser";
+import DetailUser from "./Users/DetailUser";
 
 /**
  * 2 loại components: class component / function component (function, arrow)
@@ -20,18 +22,31 @@ import {
  */
 
 const App = () => {
-// function App() {
+    // function App() {
     return (
         <BrowserRouter>
             <div className="App">
                 <header className="App-header">
                     <Nav/>
                     <img src={logo} className="App-logo" anlt="logo"/>
-                    <Routes>
-                        <Route path="/" element={<Home/>}/>
-                        <Route path="/todo" element={<ListTodo/>}/>
-                        <Route path="/about" element={<MyComponent/>}/>
-                    </Routes>
+                    <Switch>
+                        <Route path="/" exact>
+                            <Home/>
+                        </Route>
+                        <Route path="/todo">
+                            <ListTodo/>
+                        </Route>
+                        <Route path="/about">
+                            <MyComponent/>
+                        </Route>
+                        <Route path="/user" exact>
+                            <ListUser/>
+                        </Route>
+                        <Route path="/user/:id">
+                            <DetailUser/>
+                        </Route>
+                    </Switch>
+
                 </header>
 
                 <ToastContainer
